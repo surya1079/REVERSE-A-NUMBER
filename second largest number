@@ -1,0 +1,14 @@
+def secondlargestnumber(arr):
+    maximum=float("-inf")
+    secondmaximum=float("-inf")
+    if len(arr)<=1:
+        return-1
+    for i in range(len(arr)):
+        if arr[i]>maximum:
+            secmax=maximum
+            maximum=arr[i]
+        elif arr[i]>secmax and arr[i]<maximum:
+            secmax=arr[i]
+    return secmax
+arr=list(map(int,input().split()))
+print(secondlargestnumber(arr))
