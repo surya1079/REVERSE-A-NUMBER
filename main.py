@@ -1,10 +1,10 @@
-def reverse(n):
-    out=0
-    while n>0:
-        rem=n%10
-        out=out*10+rem
-        n=n//10
-    return out
-        
-n=int(input("enter the number :"))
-print(reverse(n))
+def twosum(nums,target):
+    n=len(nums)
+    for i in range(n):
+        sum=nums[i]
+        for j in range(i+1,n):
+            if sum+nums[j]==target:
+                return[i,j]
+nums=list(map(int,input().split()))
+target=int(input())
+print(twosum(nums,target))
