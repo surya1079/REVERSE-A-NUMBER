@@ -1,0 +1,11 @@
+def missingnumber(arr):
+         n=len(arr)
+         n=n+1
+         total_sum-(n*(n+1))//2
+         sum=0
+         for i in range(len(arr)):
+             sum+=arr[i]
+         return total_sum-sum
+arr=list(map(int,input().split()))
+print(missingnumber(arr))
+             
