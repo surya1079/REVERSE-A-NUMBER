@@ -1,0 +1,23 @@
+class Solution:
+		def dayOfYear(self, date: str) -> int:
+			# Parse the date
+			year, month, day = map(int, date.split('-'))
+			
+			# Days in each month for a common year
+			month_days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+			
+			# Check for leap year
+			def is_leap_year(y):
+				return (y % 4 == 0 and y % 100 != 0) or (y % 400 == 0)
+			
+			# Adjust February days if leap year
+			if is_leap_year(year):
+				month_days[1] = 29
+			
+			# Calculate day of year
+			day_count = 0
+			for m in range(month - 1):
+				day_count += month_days[m]
+			day_count += day
+			
+			return day_count
