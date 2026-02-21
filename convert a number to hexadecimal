@@ -1,0 +1,19 @@
+class Solution:
+		def toHex(self,num: int) -> str:
+			if num == 0:
+				return "0"
+		
+			# Handle negative numbers using two's complement (32-bit)
+			if num < 0:
+				num += 2**32
+		
+			hex_chars = "0123456789abcdef"
+			result = ""
+		
+			while num > 0:
+				# Get the last 4 bits (one hex digit)
+				digit = num & 0xF
+				result = hex_chars[digit] + result
+				num >>= 4  # Shift right by 4 bits
+			
+			return result
