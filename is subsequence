@@ -1,0 +1,17 @@
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        if not s:  # Empty string is always a subsequence
+            return True
+        s_ptr = 0  # Pointer for string s
+        t_ptr = 0  # Pointer for string t
+        while t_ptr < len(t):
+            # If characters match, move s pointer
+            if s[s_ptr] == t[t_ptr]:
+                s_ptr += 1
+                # If we've matched all characters in s, return True
+                if s_ptr == len(s):
+                    return True
+            # Always move t pointer
+            t_ptr += 1
+        # If we've gone through all of t without matching all of s
+        return False
