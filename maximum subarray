@@ -1,0 +1,17 @@
+class Solution:
+    def maxSubArray(self, nums):
+        if not nums:
+            return 0
+        current_sum = 0
+        max_sum = float('-inf')
+        for num in nums:
+            # Add current number to running sum
+            current_sum += num
+            # Update max_sum if current_sum is larger
+            if current_sum > max_sum:
+                max_sum = current_sum
+            # If current_sum becomes negative, reset to 0
+            # (starting a new subarray will give better result)
+            if current_sum < 0:
+                current_sum = 0
+        return max_sum
