@@ -1,0 +1,17 @@
+class Solution:
+    def generateParenthesis(self, n: int):
+        result = []
+        def backtrack(current, open_count, close_count):
+            # If we've used all opening and closing brackets, add to result
+            if open_count == n and close_count == n:
+                result.append(current)
+                return
+            # We can add an opening bracket if we haven't used all n
+            if open_count < n:
+                backtrack(current + "(", open_count + 1, close_count)
+            # We can add a closing bracket if it won't make the sequence invalid
+            # (number of closing brackets should never exceed opening brackets)
+            if close_count < open_count:
+                backtrack(current + ")", open_count, close_count + 1)
+        backtrack("", 0, 0)
+        return result
