@@ -1,0 +1,189 @@
+ 
+class Solution: 
+    def islandPerimeter(self, grid): 
+        rows = len(grid) 
+        cols = len(grid[0]) 
+        perimeter = 0 
+         
+        for i in range(rows): 
+            for j in range(cols): 
+                if grid[i][j] == 1:  # Land cell found 
+                    perimeter += 4  # Each land cell contributes 4 edges 
+                     
+                    # Check UP (i-1, j) 
+                    if i > 0 and grid[i-1][j] == 1: 
+                        perimeter -= 1 
+                     
+                    # Check DOWN (i+1, j) 
+                    if i < rows - 1 and grid[i+1][j] == 1: 
+                        perimeter -= 1 
+                     
+                    # Check LEFT (i, j-1) 
+                    if j > 0 and grid[i][j-1] == 1: 
+                        perimeter -= 1 
+                     
+                    # Check RIGHT (i, j+1) 
+                    if j < cols - 1 and grid[i][j+1] == 1: 
+                        perimeter -= 1 
+         
+        return perimeter 
+ 
+def displayGrid(grid): 
+    """Display the grid in a readable format""" 
+    print("Grid:") 
+    for row in grid: 
+        print(row) 
+    print() 
+ 
+def main(): 
+    """Main function to test the island perimeter calculation""" 
+     
+    # Create an instance of Solution 
+    sol = Solution() 
+     
+    # Test Case 1 
+    print("=" * 50) 
+    print("TEST CASE 1") 
+    print("=" * 50) 
+    grid1 = [ 
+        [0, 1, 0, 0], 
+        [1, 1, 1, 0], 
+        [0, 1, 0, 0], 
+        [1, 1, 0, 0] 
+    ] 
+    displayGrid(grid1) 
+    result1 = sol.islandPerimeter(grid1)  # Call using instance 
+    print(f"Perimeter: {result1}") 
+    print(f"Expected: 16\n") 
+     
+    # Test Case 2 
+    print("=" * 50) 
+    print("TEST CASE 2") 
+    print("=" * 50) 
+    grid2 = [[1]] 
+    displayGrid(grid2) 
+    result2 = sol.islandPerimeter(grid2) 
+    print(f"Perimeter: {result2}") 
+    print(f"Expected: 4\n") 
+     
+    # Test Case 3 
+    print("=" * 50) 
+    print("TEST CASE 3") 
+    print("=" * 50) 
+    grid3 = [[1, 0]] 
+    displayGrid(grid3) 
+    result3 = sol.islandPerimeter(grid3) 
+    print(f"Perimeter: {result3}") 
+    print(f"Expected: 4\n") 
+     
+    # Additional Test Case 4 (Single row with multiple lands) 
+    print("=" * 50) 
+    print("TEST CASE 4") 
+    print("=" * 50) 
+    grid4 = [[1, 1, 1, 1]] 
+    displayGrid(grid4) 
+    result4 = sol.islandPerimeter(grid4) 
+    print(f"Perimeter: {result4}") 
+    print(f"Expected: 10\n") 
+     
+    # Additional Test Case 5 (Single column with multiple lands) 
+    print("=" * 50) 
+    print("TEST CASE 5") 
+    print("=" * 50) 
+    grid5 = [[1], [1], [1], [1]] 
+    displayGrid(grid5) 
+    result5 = sol.islandPerimeter(grid5) 
+    print(f"Perimeter: {result5}") 
+    print(f"Expected: 10\n") 
+     
+    # Additional Test Case 6 (2x2 full block) 
+    print("=" * 50) 
+    print("TEST CASE 6") 
+    print("=" * 50) 
+    grid6 = [ 
+        [1, 1], 
+        [1, 1] 
+    ] 
+    displayGrid(grid6) 
+    result6 = sol.islandPerimeter(grid6) 
+    print(f"Perimeter: {result6}") 
+    print(f"Expected: 8\n") 
+ 
+# Alternative approach using a more concise method 
+def islandPerimeterConcise(grid): 
+    """ 
+    More concise implementation using neighbor counting 
+    """ 
+    rows, cols = len(grid), len(grid[0]) 
+    perimeter = 0 
+     
+    for i in range(rows): 
+        for j in range(cols): 
+            if grid[i][j] == 1: 
+                perimeter += 4 
+                # Check adjacent cells (only up and left to avoid double counting) 
+                if i > 0 and grid[i-1][j] == 1: 
+                    perimeter -= 2  # Subtract 2 because both cells lose one edge 
+                if j > 0 and grid[i][j-1] == 1: 
+                    perimeter -= 2 
+     
+    return perimeter 
+ 
+# Interactive version with user input 
+def interactiveMode(): 
+    """Allows user to input custom grid""" 
+    print("\n" + "=" * 50) 
+    print("INTERACTIVE MODE") 
+    print("=" * 50) 
+     
+    try: 
+        rows = int(input("Enter number of rows: ")) 
+        cols = int(input("Enter number of columns: ")) 
+         
+        print("\nEnter grid row by row (space separated values):") 
+        print("Example for row: 0 1 0 0") 
+        print() 
+         
+        grid = [] 
+        for i in range(rows): 
+            while True: 
+                row_input = input(f"Row {i+1}: ").strip().split() 
+                if len(row_input) == cols: 
+                    row = [int(x) for x in row_input] 
+                    if all(val in [0, 1] for val in row): 
+                        grid.append(row) 
+                        break 
+                    else: 
+                        print("Error: Values must be 0 or 1. Try again.") 
+                else: 
+                    print(f"Error: Expected {cols} values. Try again.") 
+         
+        print("\n" + "-" * 50) 
+        displayGrid(grid) 
+        sol = Solution() 
+        result = sol.islandPerimeter(grid) 
+        print(f"Perimeter of the island: {result}") 
+         
+    except ValueError: 
+        print("Invalid input. Please enter numbers only.") 
+ 
+# Run the program 
+if __name__ == "__main__": 
+    # Run test cases 
+    main() 
+     
+    # Uncomment the line below to use interactive mode 
+    # interactiveMode() 
+     
+    # Example of using the concise version 
+    print("\n" + "=" * 50) 
+    print("CONCISE VERSION RESULT (Test Case 1)") 
+    print("=" * 50) 
+    grid_test = [ 
+        [0, 1, 0, 0], 
+        [1, 1, 1, 0], 
+        [0, 1, 0, 0], 
+        [1, 1, 0, 0] 
+    ] 
+    result_concise = islandPerimeterConcise(grid_test) 
+    print(f"Perimeter using concise method: {result_concise}")
